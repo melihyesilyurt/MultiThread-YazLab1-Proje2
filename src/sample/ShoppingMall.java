@@ -211,5 +211,44 @@ public  class ShoppingMall {
         new Thread(new ExitTask(floors)).start();
         System.out.println("Exit Task has been started");
     }
-
+    public void setQueue(int floor0QueueInt,int floor1QueueInt,int floor2QueueInt,int floor3QueueInt,int floor4QueueInt)
+    {
+        floor0Queue.setText(String.valueOf(floor0QueueInt));
+        floor1Queue.setText(String.valueOf(floor1QueueInt));
+        floor2Queue.setText(String.valueOf(floor2QueueInt));
+        floor3Queue.setText(String.valueOf(floor3QueueInt));
+        floor4Queue.setText(String.valueOf(floor4QueueInt));
+    }
+    public void setAll(int floor1AllInt,int floor2AllInt,int floor3AllInt,int floor4AllInt)
+    {
+        floor1All.setText(String.valueOf(floor1AllInt));
+        floor2All.setText(String.valueOf(floor2AllInt));
+        floor3All.setText(String.valueOf(floor3AllInt));
+        floor4All.setText(String.valueOf(floor4AllInt));
+    }
+    public void elevator0(int destination, int count)
+    {
+      elevator1Destination.setText(String.valueOf(destination));
+      elevator1CountInside.setText(String.valueOf(count));
+    }
+    public void elevator1(int destination, int count)
+    {
+        elevator2Destination.setText(String.valueOf(destination));
+        elevator2CountInside.setText(String.valueOf(count));
+    }
+    public void elevator2(int destination, int count)
+    {
+        elevator3Destination.setText(String.valueOf(destination));
+        elevator3CountInside.setText(String.valueOf(count));
+    }
+    public void elevator3(int destination, int count)
+    {
+        elevator4Destination.setText(String.valueOf(destination));
+        elevator4CountInside.setText(String.valueOf(count));
+    }
+    public void elevator4(int destination, int count)
+    {
+        elevator5Destination.setText(String.valueOf(destination));
+        elevator5CountInside.setText(String.valueOf(count));
+    }
 }
