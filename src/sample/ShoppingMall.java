@@ -21,183 +21,176 @@ import java.util.concurrent.*;
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
 public  class ShoppingMall {
+    public static ShoppingMall Instance;
     @FXML
-    private TextField floor1All;
+    public TextField floor1All;
 
     @FXML
-    private TextField floor2All;
+    public TextField floor2All;
 
     @FXML
-    private TextField floor3All;
+    public TextField floor3All;
 
     @FXML
-    private TextField floor4All;
+    public TextField floor4All;
 
     @FXML
-    private TextField floor4Queue;
+    public TextField floor4Queue;
 
     @FXML
-    private TextField floor3Queue;
+    public TextField floor3Queue;
 
     @FXML
-    private TextField floor0Queue;
+    public TextField floor0Queue;
 
     @FXML
-    private TextField floor1Queue;
+    public TextField floor1Queue;
 
     @FXML
-    private TextField floor2Queue;
+    public TextField floor2Queue;
 
     @FXML
-    private Button StartButton;
+    public Button StartButton;
 
     @FXML
-    private TextField exitCount;
+    public TextField exitCount;
 
     @FXML
-    private TextField floor0Groups;
+    public TextField floor0Groups;
 
     @FXML
-    private TextField floor1Groups;
+    public TextField floor1Groups;
 
     @FXML
-    private TextField floor2Groups;
+    public TextField floor2Groups;
 
     @FXML
-    private TextField floor3Groups;
+    public TextField floor3Groups;
 
     @FXML
-    private TextField floor4Groups;
+    public TextField floor4Groups;
 
     @FXML
-    private  TextField elevator1Active;
+    public  TextField elevator1Active;
     @FXML
-    private TextField elevator1Floor;
+    public TextField elevator1Floor;
 
     @FXML
-    private TextField elevator1Destination;
+    public TextField elevator1Destination;
 
     @FXML
-    private TextField elevator1Direction;
+    public TextField elevator1Direction;
 
     @FXML
-    private TextField elevator1Capacity;
+    public TextField elevator1Capacity;
 
     @FXML
-    private TextField elevator1CountInside;
+    public TextField elevator1CountInside;
 
     @FXML
-    private TextField elevator1Inside;
+    public TextField elevator1Inside;
 
     @FXML
-    private TextField elevator2Active;
+    public TextField elevator2Active;
 
     @FXML
-    private TextField elevator2Floor;
+    public TextField elevator2Floor;
 
     @FXML
-    private TextField elevator2Destination;
+    public TextField elevator2Destination;
 
     @FXML
-    private TextField elevator2Direction;
+    public TextField elevator2Direction;
 
     @FXML
-    private TextField elevator2Capacity;
+    public TextField elevator2Capacity;
 
     @FXML
-    private TextField elevator2CountInside;
+    public TextField elevator2CountInside;
 
     @FXML
-    private TextField elevator2Inside;
+    public TextField elevator2Inside;
 
     @FXML
-    private TextField elevator3Active;
+    public TextField elevator3Active;
 
     @FXML
-    private TextField elevator3Floor;
+    public TextField elevator3Floor;
 
     @FXML
-    private TextField elevator3Destination;
+    public TextField elevator3Destination;
 
     @FXML
-    private TextField elevator3Direction;
+    public TextField elevator3Direction;
 
     @FXML
-    private TextField elevator3Capacity;
+    public TextField elevator3Capacity;
 
     @FXML
-    private TextField elevator3CountInside;
+    public TextField elevator3CountInside;
 
     @FXML
-    private TextField elevator3Inside;
+    public TextField elevator3Inside;
 
     @FXML
-    private TextField elevator4Active;
+    public TextField elevator4Active;
 
     @FXML
-    private TextField elevator4Floor;
+    public TextField elevator4Floor;
 
     @FXML
-    private TextField elevator4Destination;
+    public TextField elevator4Destination;
 
     @FXML
-    private TextField elevator4Direction;
+    public TextField elevator4Direction;
 
     @FXML
-    private TextField elevator4Capacity;
+    public TextField elevator4Capacity;
 
     @FXML
-    private TextField elevator4CountInside;
+    public TextField elevator4CountInside;
 
     @FXML
-    private TextField elevator4Inside;
+    public TextField elevator4Inside;
 
     @FXML
-    private TextField elevator5Active;
+    public TextField elevator5Active;
 
     @FXML
-    private TextField elevator5Floor;
+    public TextField elevator5Floor;
 
     @FXML
-    private TextField elevator5Destination;
+    public TextField elevator5Destination;
 
     @FXML
-    private TextField elevator5Direction;
+    public TextField elevator5Direction;
 
     @FXML
-    private TextField elevator5Capacity;
+    public TextField elevator5Capacity;
 
     @FXML
-    private TextField elevator5CountInside;
+    public TextField elevator5CountInside;
 
     @FXML
-    private TextField elevator5Inside;
+    public TextField elevator5Inside;
 
     @FXML
-    private   TextField elevator1Mode;
+    public   TextField elevator1Mode;
 
     @FXML
-    private  TextField elevator2Mode;
+    public  TextField elevator2Mode;
 
     @FXML
-    private  TextField elevator3Mode;
+    public  TextField elevator3Mode;
 
     @FXML
-    private  TextField elevator4Mode;
+    public  TextField elevator4Mode;
 
     @FXML
-    private  TextField elevator5Mode;
-   private void setElevator5Active(String status)
-    {
-        elevator5Active.setText(status);
-    }
+    public  TextField elevator5Mode;
     @FXML
-    void Run(ActionEvent event) {
-        elevator1Active.setText("True");
-        elevator2Active.setText("False");
-        elevator3Active.setText("False");
-        elevator4Active.setText("False");
-        elevator5Active.setText("False");
+    void Run(ActionEvent event) throws InterruptedException {
+        Instance = this;
         List<Floor> floors = Collections.synchronizedList(new ArrayList<Floor>());
         for (int i = 0; i<5; i++) {
             floors.add(new Floor("Floor "+i));
@@ -209,7 +202,7 @@ public  class ShoppingMall {
                 return new Thread(r, "Elevator 0");
             }
         });
-        elevators.add(new Elevator(te));
+        elevators.add(new Elevator(te, 0 ));
         System.out.println("ShoppingMall was created");
         new Thread(new ControlTask(floors, elevators)).start();
         System.out.println("Control Task has been started");

@@ -5,12 +5,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Elevator {
     AtomicInteger busy;
-
     private ExecutorService executorService;
+    private int id;
 
-    public Elevator(ExecutorService executorService) {
+    public Elevator(ExecutorService executorService, int id) {
         this.executorService = executorService;
         this.busy = new AtomicInteger(0);
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public  int getBusy() {

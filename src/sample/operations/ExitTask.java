@@ -1,5 +1,6 @@
 package sample.operations;
 
+import sample.ShoppingMall;
 import sample.models.Floor;
 import sample.models.PersonGroup;
 
