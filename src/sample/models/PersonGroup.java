@@ -4,11 +4,17 @@ public class PersonGroup {
     private int id;
     private int startFloor;
     private int endFloor;
+    private int groupSize;
 
-    public PersonGroup(int id, int startFloor, int endFloor) {
+    public PersonGroup(int id, int startFloor, int endFloor, int group) {
         this.id = id;
         this.startFloor = startFloor;
         this.endFloor = endFloor;
+        this.groupSize=group;
+    }
+
+    public int getGroupSize() {
+        return groupSize;
     }
 
     public int getId() {

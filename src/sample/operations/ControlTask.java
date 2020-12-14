@@ -53,6 +53,7 @@ public class ControlTask implements Runnable {
                     ShoppingMall.Instance.setAll((floors.get(1).getResidents().size()+floors.get(1).getQueue().size()),(floors.get(2).getResidents().size()+floors.get(2).getQueue().size()),(floors.get(3).getResidents().size()+floors.get(3).getQueue().size()),(floors.get(4).getResidents().size()+floors.get(4).getQueue().size()));
                     ShoppingMall.Instance.setControlTaskIdle(availableElevators);
                     Elevator elevator = this.findNextAvailableElevator();
+
                     int groupSize = Math.min(floor.getQueue().size(), 10);//kişi sayısı buradan
                     if (floor.getQueue().size() > 0 && elevator != null) {
                         ArrayList<PersonGroup> groups = new ArrayList<>();

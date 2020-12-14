@@ -296,4 +296,43 @@ public  class ShoppingMall {
             elevator5Mode.setText("idle");
         }
     }
+    public void setGroups(int elevator,int men,int destination)
+    {
+        if(elevator==0)
+        {
+          elevator1Inside.setText(elevator1Inside.getText()+"("+men+","+destination+")"+",");
+        }
+        else if(elevator==1)
+        {
+           elevator2Inside.setText(elevator2Inside.getText()+"("+men+","+destination+")"+",");
+        }
+        else if(elevator==2)
+        {
+           elevator3Inside.setText(elevator3Inside.getText()+"("+men+","+destination+")"+",");
+        }
+        else if(elevator==3)
+        {
+            elevator4Inside.setText(elevator4Inside.getText()+"("+men+","+destination+")"+",");
+        }
+        else if(elevator==4)
+        {
+           elevator5Inside.setText(elevator5Inside.getText()+"("+men+","+destination+")"+",");
+        }
+    }
+    public void setOpen()
+    {
+      elevator1Inside.setText("[");
+      elevator2Inside.setText("[");
+        elevator3Inside.setText("[");
+       elevator4Inside.setText("[");
+       elevator5Inside.setText("[");
+    }
+    public void setClose()
+    {
+       elevator1Inside.setText(elevator1Inside.getText()+"]");
+        elevator2Inside.setText(elevator2Inside.getText()+"]");
+        elevator3Inside.setText(elevator3Inside.getText()+"]");
+       elevator4Inside.setText(elevator4Inside.getText()+"]");
+        elevator5Inside.setText(elevator5Inside.getText()+"]");
+    }
 }

@@ -16,6 +16,9 @@ public class ElevatorTask implements Runnable {
     private Elevator elevator;
     private int elevatorCount;
     private static int quitCount=0;
+    private int group=0;
+    private int groupInMen=0;
+    private  int groupDestination=0;
 
     public ElevatorTask(List<Floor> floors , Elevator elevator, ArrayList<PersonGroup> personGroups) {
         this.floors = floors;
@@ -26,9 +29,26 @@ public class ElevatorTask implements Runnable {
     @Override
     public void run() {
         elevatorCount=0;
+        ShoppingMall.Instance.setOpen();
         for (PersonGroup personGroup: personGroups) {
             elevatorCount++;
+            groupDestination=personGroup.getEndFloor();
+            if(personGroup.getGroupSize()==group)
+            {
+                groupInMen++;
+            }
+            else
+            {
+                if(group!=0)
+                {
+                    ShoppingMall.Instance.setGroups(this.elevator.getId(),groupInMen,groupDestination);
+                }
+                group=personGroup.getGroupSize();
+                groupInMen=1;
+
+            }
         }
+        ShoppingMall.Instance.setClose();
         for (PersonGroup personGroup: personGroups) {
             floors.get(personGroup.getStartFloor()).getQueue().remove(personGroup);
             try {
