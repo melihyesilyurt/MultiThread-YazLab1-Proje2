@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicIntegerArray;
 
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
@@ -203,6 +204,7 @@ public  class ShoppingMall {
             }
         });
         elevators.add(new Elevator(te, 0 ));
+       // elevators.add(new Elevator( 0 ));
         System.out.println("ShoppingMall was created");
         new Thread(new ControlTask(floors, elevators)).start();
         System.out.println("Control Task has been started");
@@ -250,5 +252,48 @@ public  class ShoppingMall {
     {
         elevator5Destination.setText(String.valueOf(destination));
         elevator5CountInside.setText(String.valueOf(count));
+    }
+    public void setControlTaskIdle(AtomicIntegerArray availableElevators )
+    {
+        if(availableElevators.get(0)==1){
+           elevator1Active.setText("True");
+           elevator1Mode.setText("Working");
+        }
+        else{
+            elevator1Active.setText("False");
+            elevator1Mode.setText("idle");
+        }
+        if(availableElevators.get(1)==1){
+            elevator2Active.setText("True");
+            elevator2Mode.setText("Working");
+        }
+        else{
+           elevator2Active.setText("False");
+          elevator2Mode.setText("idle");
+        }
+        if(availableElevators.get(2)==1){
+           elevator3Active.setText("True");
+            elevator3Mode.setText("Working");
+        }
+        else{
+            elevator3Active.setText("False");
+           elevator3Mode.setText("idle");
+        }
+        if(availableElevators.get(3)==1){
+            elevator4Active.setText("True");
+           elevator4Mode.setText("Working");
+        }
+        else{
+           elevator4Active.setText("False");
+         elevator4Mode.setText("idle");
+        }
+        if(availableElevators.get(4)==1){
+          elevator5Active.setText("True");
+            elevator5Mode.setText("Working");
+        }
+        else{
+            elevator5Active.setText("False");
+            elevator5Mode.setText("idle");
+        }
     }
 }

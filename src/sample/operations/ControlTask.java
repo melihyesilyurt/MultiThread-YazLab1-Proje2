@@ -51,46 +51,7 @@ public class ControlTask implements Runnable {
                 for (Floor floor : floors) {
                     ShoppingMall.Instance.setQueue(floors.get(0).getQueue().size(),floors.get(1).getQueue().size(),floors.get(2).getQueue().size(),floors.get(3).getQueue().size(),floors.get(4).getQueue().size());
                     ShoppingMall.Instance.setAll((floors.get(1).getResidents().size()+floors.get(1).getQueue().size()),(floors.get(2).getResidents().size()+floors.get(2).getQueue().size()),(floors.get(3).getResidents().size()+floors.get(3).getQueue().size()),(floors.get(4).getResidents().size()+floors.get(4).getQueue().size()));
-                    if(availableElevators.get(0)==1){
-                        ShoppingMall.Instance.elevator1Active.setText("True");
-                        ShoppingMall.Instance.elevator1Mode.setText("Working");
-                    }
-                    else{
-                        ShoppingMall.Instance.elevator1Active.setText("False");
-                        ShoppingMall.Instance.elevator1Mode.setText("idle");
-                    }
-                    if(availableElevators.get(1)==1){
-                        ShoppingMall.Instance.elevator2Active.setText("True");
-                        ShoppingMall.Instance.elevator2Mode.setText("Working");
-                    }
-                    else{
-                        ShoppingMall.Instance.elevator2Active.setText("False");
-                        ShoppingMall.Instance.elevator2Mode.setText("idle");
-                    }
-                    if(availableElevators.get(2)==1){
-                        ShoppingMall.Instance.elevator3Active.setText("True");
-                        ShoppingMall.Instance.elevator3Mode.setText("Working");
-                    }
-                    else{
-                        ShoppingMall.Instance.elevator3Active.setText("False");
-                        ShoppingMall.Instance.elevator3Mode.setText("idle");
-                    }
-                    if(availableElevators.get(3)==1){
-                        ShoppingMall.Instance.elevator4Active.setText("True");
-                        ShoppingMall.Instance.elevator4Mode.setText("Working");
-                    }
-                    else{
-                        ShoppingMall.Instance.elevator4Active.setText("False");
-                        ShoppingMall.Instance.elevator4Mode.setText("idle");
-                    }
-                    if(availableElevators.get(4)==1){
-                        ShoppingMall.Instance.elevator5Active.setText("True");
-                        ShoppingMall.Instance.elevator5Mode.setText("Working");
-                    }
-                    else{
-                        ShoppingMall.Instance.elevator5Active.setText("False");
-                        ShoppingMall.Instance.elevator5Mode.setText("idle");
-                    }
+                    ShoppingMall.Instance.setControlTaskIdle(availableElevators);
                     Elevator elevator = this.findNextAvailableElevator();
                     int groupSize = Math.min(floor.getQueue().size(), 10);//kişi sayısı buradan
                     if (floor.getQueue().size() > 0 && elevator != null) {
@@ -102,12 +63,13 @@ public class ControlTask implements Runnable {
                     }
                     if ((allCountQueue < 10) && (this.elevators.size() > 1)) {
                         Elevator lastElevator = elevators.get(elevators.size()-1);
-                   lastElevator.getExecutorService().shutdown();
+                      lastElevator.getExecutorService().shutdown();
                     elevators.remove(lastElevator);
                     }
                     if ((floor.getQueue().size() > 20) && (this.elevators.size() < 5)) {
                         // Create a new elevator
                         System.out.println("New elevator id "+findNextAvailableElevatorId() +" activated");
+
                         ExecutorService te = newFixedThreadPool(1, new ThreadFactory() {
                             @Override
                             public Thread newThread(Runnable r) {
