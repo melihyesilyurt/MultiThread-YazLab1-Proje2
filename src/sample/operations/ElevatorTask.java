@@ -8,6 +8,7 @@ import sample.models.PersonGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ElevatorTask implements Runnable {
@@ -28,6 +29,7 @@ public class ElevatorTask implements Runnable {
 
     @Override
     public void run() {
+        this.elevator.setBusy(new AtomicInteger(1));
         elevatorCount=0;
         ShoppingMall.Instance.setOpen();
         for (PersonGroup personGroup: personGroups) {
@@ -107,15 +109,12 @@ public class ElevatorTask implements Runnable {
                         ShoppingMall.Instance.elevator5Direction.setText("Down");
                     }
                 }
-                Thread.sleep(200 * Math.abs(personGroup.getEndFloor() - personGroup.getStartFloor() + 1));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
             floors.get(personGroup.getEndFloor()).getResidents().add(personGroup);
 
 
             System.out.println(
-                    "Person Group id "+ personGroup.getId() +" reached to the "
+                    "Elevator id: "+this.elevator.getId() +" Person Group id "+ personGroup.getId() +" reached to the "
                             + personGroup.getEndFloor()
                             + " from " + personGroup.getStartFloor()
             );
@@ -155,6 +154,10 @@ public class ElevatorTask implements Runnable {
 
 
             this.elevator.setBusy(new AtomicInteger(0));
+                Thread.sleep(200 * Math.abs(personGroup.getEndFloor() - personGroup.getStartFloor() + 1));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

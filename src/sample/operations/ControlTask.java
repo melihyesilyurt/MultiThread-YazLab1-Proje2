@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 
@@ -25,6 +26,7 @@ public class ControlTask implements Runnable {
         this.elevators = elevators;
     }
 
+//    [1, 0, 1, 0, 0]
     private int findNextAvailableElevatorId() {
         for(int i = 0; i< availableElevators.length(); i++) {
             if (availableElevators.get(i) == 0){
@@ -36,7 +38,7 @@ public class ControlTask implements Runnable {
 
     private Elevator findNextAvailableElevator() {
         for(int i = 0; i< elevators.size(); i++) {
-            if (elevators.get(i).getBusy() == 0){
+            if (((ThreadPoolExecutor) elevators.get(i).getExecutorService()).getQueue().size() == 0){
                 return elevators.get(i);
             }
         }
@@ -64,22 +66,23 @@ public class ControlTask implements Runnable {
                     }
                     if ((allCountQueue < 10) && (this.elevators.size() > 1)) {
                         Elevator lastElevator = elevators.get(elevators.size()-1);
+                        System.out.println("Elevator id "+lastElevator.getId() +" closed");
                       lastElevator.getExecutorService().shutdown();
                     elevators.remove(lastElevator);
                     }
                     if ((floor.getQueue().size() > 20) && (this.elevators.size() < 5)) {
                         // Create a new elevator
-                        System.out.println("New elevator id "+findNextAvailableElevatorId() +" activated");
-
+                        int availableElevatorId = findNextAvailableElevatorId();
+                        System.out.println("New elevator id "+availableElevatorId +" activated");
                         ExecutorService te = newFixedThreadPool(1, new ThreadFactory() {
                             @Override
                             public Thread newThread(Runnable r) {
-                                String name = "Elevator - " + findNextAvailableElevatorId();
+                                String name = "Elevator - " + availableElevatorId;
                                 return new Thread(r, name);
                             }
                         });
-                        availableElevators.getAndSet(findNextAvailableElevatorId(), 1);
-                        elevators.add(new Elevator(te, findNextAvailableElevatorId()));
+                        availableElevators.getAndSet(availableElevatorId, 1);
+                        elevators.add(new Elevator(te, availableElevatorId));
                     }
                     try {
                         Thread.sleep(1000);
