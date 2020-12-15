@@ -55,7 +55,7 @@ public  class ShoppingMall {
 
     @FXML
     public TextField exitCount;
-
+/*
     @FXML
     public TextField floor0Groups;
 
@@ -70,7 +70,7 @@ public  class ShoppingMall {
 
     @FXML
     public TextField floor4Groups;
-
+*/
     @FXML
     public  TextField elevator1Active;
     @FXML
@@ -82,8 +82,8 @@ public  class ShoppingMall {
     @FXML
     public TextField elevator1Direction;
 
-    @FXML
-    public TextField elevator1Capacity;
+ //   @FXML
+  //  public TextField elevator1Capacity;
 
     @FXML
     public TextField elevator1CountInside;
@@ -103,8 +103,8 @@ public  class ShoppingMall {
     @FXML
     public TextField elevator2Direction;
 
-    @FXML
-    public TextField elevator2Capacity;
+   // @FXML
+   // public TextField elevator2Capacity;
 
     @FXML
     public TextField elevator2CountInside;
@@ -124,8 +124,8 @@ public  class ShoppingMall {
     @FXML
     public TextField elevator3Direction;
 
-    @FXML
-    public TextField elevator3Capacity;
+ //   @FXML
+ //   public TextField elevator3Capacity;
 
     @FXML
     public TextField elevator3CountInside;
@@ -145,8 +145,8 @@ public  class ShoppingMall {
     @FXML
     public TextField elevator4Direction;
 
-    @FXML
-    public TextField elevator4Capacity;
+ //   @FXML
+ //   public TextField elevator4Capacity;
 
     @FXML
     public TextField elevator4CountInside;
@@ -166,8 +166,8 @@ public  class ShoppingMall {
     @FXML
     public TextField elevator5Direction;
 
-    @FXML
-    public TextField elevator5Capacity;
+  //  @FXML
+   // public TextField elevator5Capacity;
 
     @FXML
     public TextField elevator5CountInside;
@@ -204,7 +204,6 @@ public  class ShoppingMall {
             }
         });
         elevators.add(new Elevator(te, 0 ));
-       // elevators.add(new Elevator( 0 ));
         System.out.println("ShoppingMall was created");
         new Thread(new ControlTask(floors, elevators)).start();
         System.out.println("Control Task has been started");
@@ -213,51 +212,20 @@ public  class ShoppingMall {
         new Thread(new ExitTask(floors)).start();
         System.out.println("Exit Task has been started");
     }
-    public void setQueue(int floor0QueueInt,int floor1QueueInt,int floor2QueueInt,int floor3QueueInt,int floor4QueueInt)
-    {
-        floor0Queue.setText(String.valueOf(floor0QueueInt));
-        floor1Queue.setText(String.valueOf(floor1QueueInt));
-        floor2Queue.setText(String.valueOf(floor2QueueInt));
-        floor3Queue.setText(String.valueOf(floor3QueueInt));
-        floor4Queue.setText(String.valueOf(floor4QueueInt));
-    }
-    public void setAll(int floor1AllInt,int floor2AllInt,int floor3AllInt,int floor4AllInt)
+    public void setAll(int floor1AllInt,int floor2AllInt,int floor3AllInt,int floor4AllInt,int floor0QueueInt,int floor1QueueInt,int floor2QueueInt,int floor3QueueInt,int floor4QueueInt,AtomicIntegerArray availableElevators)
     {
         floor1All.setText(String.valueOf(floor1AllInt));
         floor2All.setText(String.valueOf(floor2AllInt));
         floor3All.setText(String.valueOf(floor3AllInt));
         floor4All.setText(String.valueOf(floor4AllInt));
-    }
-    public void elevator0(int destination, int count)
-    {
-      elevator1Destination.setText(String.valueOf(destination));
-      elevator1CountInside.setText(String.valueOf(count));
-    }
-    public void elevator1(int destination, int count)
-    {
-        elevator2Destination.setText(String.valueOf(destination));
-        elevator2CountInside.setText(String.valueOf(count));
-    }
-    public void elevator2(int destination, int count)
-    {
-        elevator3Destination.setText(String.valueOf(destination));
-        elevator3CountInside.setText(String.valueOf(count));
-    }
-    public void elevator3(int destination, int count)
-    {
-        elevator4Destination.setText(String.valueOf(destination));
-        elevator4CountInside.setText(String.valueOf(count));
-    }
-    public void elevator4(int destination, int count)
-    {
-        elevator5Destination.setText(String.valueOf(destination));
-        elevator5CountInside.setText(String.valueOf(count));
-    }
-    public void setControlTaskIdle(AtomicIntegerArray availableElevators )
-    {
+        floor0Queue.setText(String.valueOf(floor0QueueInt));
+        floor1Queue.setText(String.valueOf(floor1QueueInt));
+        floor2Queue.setText(String.valueOf(floor2QueueInt));
+        floor3Queue.setText(String.valueOf(floor3QueueInt));
+        floor4Queue.setText(String.valueOf(floor4QueueInt));
         if(availableElevators.get(0)==1){
-           elevator1Active.setText("True");
-           elevator1Mode.setText("Working");
+            elevator1Active.setText("True");
+            elevator1Mode.setText("Working");
         }
         else{
             elevator1Active.setText("False");
@@ -268,27 +236,27 @@ public  class ShoppingMall {
             elevator2Mode.setText("Working");
         }
         else{
-           elevator2Active.setText("False");
-          elevator2Mode.setText("idle");
+            elevator2Active.setText("False");
+            elevator2Mode.setText("idle");
         }
         if(availableElevators.get(2)==1){
-           elevator3Active.setText("True");
+            elevator3Active.setText("True");
             elevator3Mode.setText("Working");
         }
         else{
             elevator3Active.setText("False");
-           elevator3Mode.setText("idle");
+            elevator3Mode.setText("idle");
         }
         if(availableElevators.get(3)==1){
             elevator4Active.setText("True");
-           elevator4Mode.setText("Working");
+            elevator4Mode.setText("Working");
         }
         else{
-           elevator4Active.setText("False");
-         elevator4Mode.setText("idle");
+            elevator4Active.setText("False");
+            elevator4Mode.setText("idle");
         }
         if(availableElevators.get(4)==1){
-          elevator5Active.setText("True");
+            elevator5Active.setText("True");
             elevator5Mode.setText("Working");
         }
         else{
@@ -319,20 +287,96 @@ public  class ShoppingMall {
            elevator5Inside.setText(elevator5Inside.getText()+"("+men+","+destination+")"+",");
         }
     }
-    public void setOpen()
+    public void setElevatorVariables(int destination, int count,int currentFloor, int elevator, int quit)
     {
-      elevator1Inside.setText("[");
-      elevator2Inside.setText("[");
-        elevator3Inside.setText("[");
-       elevator4Inside.setText("[");
-       elevator5Inside.setText("[");
+      exitCount.setText(String.valueOf(quit));
+        if(elevator==0)
+        {
+            elevator1Destination.setText(String.valueOf(destination));
+            elevator1CountInside.setText(String.valueOf(count));
+            if (destination - currentFloor>0)
+            {
+                elevator1Direction.setText("Up");
+            }
+            else {
+              elevator1Direction.setText("Down");
+            }
+        }
+        else if(elevator==1)
+        {
+            elevator2Destination.setText(String.valueOf(destination));
+            elevator2CountInside.setText(String.valueOf(count));
+            if (destination - currentFloor>0)
+            {
+               elevator2Direction.setText("Up");
+            }
+            else {
+              elevator2Direction.setText("Down");
+            }
+        }
+        else if(elevator==2)
+        {
+            elevator3Destination.setText(String.valueOf(destination));
+            elevator3CountInside.setText(String.valueOf(count));
+            if (destination - currentFloor>0)
+            {
+                elevator3Direction.setText("Up");
+            }
+            else {
+              elevator3Direction.setText("Down");
+            }
+        }
+        else if(elevator==3)
+        {
+            elevator4Destination.setText(String.valueOf(destination));
+            elevator4CountInside.setText(String.valueOf(count));
+            if (destination - currentFloor>0)
+            {
+               elevator4Direction.setText("Up");
+            }
+            else {
+              elevator4Direction.setText("Down");
+            }
+        }
+        else if(elevator==4)
+        {
+            elevator5Destination.setText(String.valueOf(destination));
+            elevator5CountInside.setText(String.valueOf(count));
+            if (destination - currentFloor>0)
+            {
+               elevator5Direction.setText("Up");
+            }
+            else {
+               elevator5Direction.setText("Down");
+            }
+        }
     }
-    public void setClose()
+    public void setDestination(int destination,int elevator)
     {
-       elevator1Inside.setText(elevator1Inside.getText()+"]");
-        elevator2Inside.setText(elevator2Inside.getText()+"]");
-        elevator3Inside.setText(elevator3Inside.getText()+"]");
-       elevator4Inside.setText(elevator4Inside.getText()+"]");
-        elevator5Inside.setText(elevator5Inside.getText()+"]");
+        if(elevator==0)
+        {
+            elevator1Floor.setText(String.valueOf(destination));
+           elevator1Mode.setText("idle");
+        }
+        else if(elevator==1)
+        {
+            elevator2Floor.setText(String.valueOf(destination));
+           elevator2Mode.setText("idle");
+        }
+        else if(elevator==2)
+        {
+            elevator3Floor.setText(String.valueOf(destination));
+            elevator3Mode.setText("idle");
+        }
+        else if(elevator==3)
+        {
+           elevator4Floor.setText(String.valueOf(destination));
+           elevator4Mode.setText("idle");
+        }
+        else if(elevator==4)
+        {
+            elevator5Floor.setText(String.valueOf(destination));
+            elevator5Mode.setText("idle");
+        }
     }
 }

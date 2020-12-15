@@ -12,7 +12,7 @@ public class Floor {
 
     private BlockingQueue queue;
     public Floor(String name) {
-        queue = new ArrayBlockingQueue(1024);
+        queue = new ArrayBlockingQueue(2048);
         this.name = name;
     }
 

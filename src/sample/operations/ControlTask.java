@@ -25,7 +25,6 @@ public class ControlTask implements Runnable {
         this.floors = floors;
         this.elevators = elevators;
     }
-
 //    [1, 0, 1, 0, 0]
     private int findNextAvailableElevatorId() {
         for(int i = 0; i< availableElevators.length(); i++) {
@@ -50,12 +49,10 @@ public class ControlTask implements Runnable {
         try {
             while (true) {
                 allCountQueue=floors.get(0).getQueue().size()+floors.get(1).getQueue().size()+floors.get(2).getQueue().size()+floors.get(3).getQueue().size()+floors.get(4).getQueue().size();
+                ShoppingMall.Instance.setAll((floors.get(1).getResidents().size()+floors.get(1).getQueue().size()),(floors.get(2).getResidents().size()+floors.get(2).getQueue().size()),(floors.get(3).getResidents().size()+floors.get(3).getQueue().size()),(floors.get(4).getResidents().size()+floors.get(4).getQueue().size()),floors.get(0).getQueue().size(),floors.get(1).getQueue().size(),floors.get(2).getQueue().size(),floors.get(3).getQueue().size(),floors.get(4).getQueue().size(),availableElevators);
                 for (Floor floor : floors) {
-                    ShoppingMall.Instance.setQueue(floors.get(0).getQueue().size(),floors.get(1).getQueue().size(),floors.get(2).getQueue().size(),floors.get(3).getQueue().size(),floors.get(4).getQueue().size());
-                    ShoppingMall.Instance.setAll((floors.get(1).getResidents().size()+floors.get(1).getQueue().size()),(floors.get(2).getResidents().size()+floors.get(2).getQueue().size()),(floors.get(3).getResidents().size()+floors.get(3).getQueue().size()),(floors.get(4).getResidents().size()+floors.get(4).getQueue().size()));
-                    ShoppingMall.Instance.setControlTaskIdle(availableElevators);
+                  //  ShoppingMall.Instance.setAll((floors.get(1).getResidents().size()+floors.get(1).getQueue().size()),(floors.get(2).getResidents().size()+floors.get(2).getQueue().size()),(floors.get(3).getResidents().size()+floors.get(3).getQueue().size()),(floors.get(4).getResidents().size()+floors.get(4).getQueue().size()),floors.get(0).getQueue().size(),floors.get(1).getQueue().size(),floors.get(2).getQueue().size(),floors.get(3).getQueue().size(),floors.get(4).getQueue().size(),availableElevators);
                     Elevator elevator = this.findNextAvailableElevator();
-
                     int groupSize = Math.min(floor.getQueue().size(), 10);//kişi sayısı buradan
                     if (floor.getQueue().size() > 0 && elevator != null) {
                         ArrayList<PersonGroup> groups = new ArrayList<>();
